@@ -1,0 +1,77 @@
+.logo {
+    max-width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.goods-card {
+    /*max-width: 49%;*/
+    /*display: inline-block;*/
+    /*width: 270px;*/
+    border-radius: 10px;
+    margin: 0 10px 10px 0;
+    position: relative;
+}
+
+.goods-card:hover, .goods-mini-img-box img:hover {
+    box-shadow: 0 2px 8px #6e7780;
+}
+
+.lottery-card:before {
+    content: '一番くじ';
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 4px;
+    font-size: 0.8em;
+}
+
+.ant-layout-header, .ant-layout-footer {
+    background: #fff;
+    box-shadow: 0 2px 8px #6e7780;
+    padding: 0 10px;
+}
+
+
+.ant-layout-content {
+    max-width: 1024px;
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+#index .ant-layout-content {
+    padding: 10px 0 0 10px;
+}
+
+.ant-avatar {
+    border: 1px solid #212e53;
+}
+
+.detail-box > div {
+    margin: 10px 0 5px 0;
+}
+
+.goods-mini-img-box img {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.ant-comment-content-detail p {
+    white-space: normal;
+}
+
+.goods-info {
+    background: rgb(255, 255, 255);
+    padding: 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+}

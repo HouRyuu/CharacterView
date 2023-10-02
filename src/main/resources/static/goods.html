@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/icon.png">
+    <title>キャラビューcharaview.com--キャラビューで好きなキャラクターを探しましょう</title>
+</head>
+<body>
+<div id="goods">
+    <a-layout>
+        <a-layout-header>
+            <a-row type="flex" justify="space-between">
+                <a-col :span="20">
+                    <a href="index.html"><img class="logo" src="./img/logo.png" alt="ホームページ"></a>
+                </a-col>
+                <a-col :span="4" class="text-center">
+                    <a v-if="isLogin" href="account.html">
+                        <a-avatar src="./img/icon.png"/>
+                    </a>
+                    <a v-else href="login.html">
+                        <a-button type="link">
+                            ログイン
+                        </a-button>
+                    </a>
+                </a-col>
+            </a-row>
+        </a-layout-header>
+        <a-layout-content class="detail-box">
+            <a-row type="flex" justify="center">
+                <a-col :xs="24" :sm="24" :md="20" :lg="16" :xl="14">
+                    <a-carousel autoplay>
+                        <div v-for="(img,index) in goods.imgs" :key="index">
+                            <img :src="img" style="width: 100%">
+                        </div>
+                    </a-carousel>
+                </a-col>
+            </a-row>
+            <a-tabs class="goods-info">
+                <a-tab-pane key="1">
+                    <span slot="tab">詳細</span>
+                    <section style="white-space: pre-wrap;">{{goods.detail}}</section>
+                </a-tab-pane>
+                <a-tab-pane key="2">
+                    <span slot="tab">販売店</span>
+                    <a-row>
+                        <a-col :xs="24" :sm="24" :md="14" :lg="12" :xl="10">
+                            <a-cascader style="width: 100%;margin-bottom: 10px;" change-on-select :options="regions" placeholder="地域を検索"/>
+                        </a-col>
+                    </a-row>
+                    <a-collapse accordion expand-icon-position="left">
+                        <a-collapse-panel v-for="store in storeList" :key="store.id" :header="store.name">
+                            <span slot="extra">{{store.stockFlag ? '在庫あり' : '在庫切れ'}}</span>
+                            <p>住所：{{ store.address }}</p>
+                            <a-comment v-for="(item, index) in data" :key="index" :author="item.author"
+                                       :avatar="item.avatar">
+                                <template slot="actions">
+                                    <a-button type="link" v-for="action in item.actions">{{ action }}</a-button>
+                                </template>
+                                <div slot="content">
+                                    <p>{{ item.content }}</p>
+                                    <a-form-item>
+                                        <a-textarea :rows="4"/>
+                                    </a-form-item>
+                                </div>
+                                <a-tooltip slot="datetime" :title="item.datetime">
+                                    <span>{{ item.datetime }}</span>
+                                </a-tooltip>
+                            </a-comment>
+                        </a-collapse-panel>
+                    </a-collapse>
+                </a-tab-pane>
+                <a-tab-pane key="3">
+                    <span slot="tab">コメント</span>
+                    <a-comment v-for="(item, index) in data" :key="index" :author="item.author" :avatar="item.avatar">
+                        <template slot="actions">
+                            <a-button type="link" v-for="action in item.actions">{{ action }}</a-button>
+                        </template>
+                        <div slot="content">
+                            <p>{{ item.content }}</p>
+                            <a-form-item>
+                                <a-textarea :rows="4"/>
+                            </a-form-item>
+                        </div>
+                        <a-tooltip slot="datetime" :title="item.datetime">
+                            <span>{{ item.datetime }}</span>
+                        </a-tooltip>
+                    </a-comment>
+                </a-tab-pane>
+            </a-tabs>
+        </a-layout-content>
+        <a-layout-footer class="text-center" style="height: 50px;line-height: 50px">&copy;Character View Company
+        </a-layout-footer>
+    </a-layout>
+    <a-back-top/>
+</div>
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/antd.min.js"></script>
+<script src="./js/region.js"></script>
+<link rel="stylesheet" href="./css/antd.min.css">
+<link rel="stylesheet" href="./css/common.css">
+<script>
+    new Vue({
+        el: '#goods',
+        data: {
+            isLogin: true,
+            goods: {
+                id: 1,
+                lottery: 1,
+                name: 'アーニャ',
+                desc: 'とても可愛いアーニャさん',
+                imgs: [
+                    'https://1kuji.com/uploads/product/image/10077/996f8b38-ee71-4135-bf63-5c9fe6995d03.jpg',
+                    'https://1kuji.com/uploads/product/image/3841/e2cb3a08-3ee6-4260-aa26-b52ffc7625b9.jpg',
+                    'https://1kuji.com/uploads/product/image/10066/7ef5b95a-8151-4a20-a5fc-5f012f4f7554.jpg',
+                    'https://1kuji.com/uploads/product/image/10142/6fec48d4-a042-454a-9fa7-93f84f34501b.jpg',
+                    'https://1kuji.com/uploads/product/image/10077/996f8b38-ee71-4135-bf63-5c9fe6995d03.jpg',
+                    'https://1kuji.com/uploads/product/image/3841/e2cb3a08-3ee6-4260-aa26-b52ffc7625b9.jpg',
+                    'https://1kuji.com/uploads/product/image/10066/7ef5b95a-8151-4a20-a5fc-5f012f4f7554.jpg',
+                    'https://1kuji.com/uploads/product/image/10142/6fec48d4-a042-454a-9fa7-93f84f34501b.jpg'
+                ],
+                detail: 'B5サイズのアクリルボード。\n' +
+                    'デザインは中野五姉妹が集合した新規描きおろしイラスト！\n' +
+                    '並んで歩く美麗な5人の姿が魅力的！\n' +
+                    '\n' +
+                    '■当選数：50個\n' +
+                    '■全1種\n' +
+                    '■サイズ：B5\n' +
+                    '\n' +
+                    '※「ラストワン賞 アクリルボード」と同一の賞品となります。\n' +
+                    '※当選はお一人につき1回までとなります。\n' +
+                    '※期間は延長される場合がございます。\n' +
+                    '※キャンペーンナンバーが同梱されている賞品に関しては、使用期限が終了している場合があります。'
+            },
+            curImgIndex: 0,
+            data: [
+                {
+                    actions: ['コメント'],
+                    author: 'Han Solo',
+                    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    content:
+                        'キャンペーンナンバーが同梱されている賞品に関しては、使用期限が終了している場合があります。',
+                    datetime: 1,
+                },
+                {
+                    actions: ['コメント'],
+                    author: 'Han Solo',
+                    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    content:
+                        'キャンペーンナンバーが同梱されている賞品に関しては、使用期限が終了している場合があります。キャンペーンナンバーが同梱されている賞品に関しては、使用期限が終了している場合があります。',
+                    datetime: 2,
+                },
+            ],
+            storeList: [{
+                id: 1,
+                name: 'ファミリーマート百人町店',
+                address: '東京都新宿区百人町1−1−1',
+                stockFlag: 1
+            }, {
+                id: 2,
+                name: 'ファミリーマート新宿西口店',
+                address: '東京都新宿区百人町1−1−1',
+                stockFlag: 1
+            }, {
+                id: 3,
+                name: 'ファミリーマート新宿東南口店',
+                address: '東京都新宿区百人町1−1−1',
+                stockFlag: 1
+            }, {
+                id: 4,
+                name: 'ファミリーマート明治神宮前店',
+                address: '東京都新宿区百人町1−1−1',
+                stockFlag: 1
+            }, {
+                id: 5,
+                name: 'ファミリーマート渋谷駅店',
+                address: '東京都新宿区百人町1−1−1',
+                stockFlag: 0
+            }, {
+                id: 6,
+                name: 'ファミリーマート六本木北口店',
+                address: '東京都新宿区百人町1−1−1',
+                stockFlag: 0
+            }],
+            regions: []
+        },
+        created() {
+            this.regions = REGION;
+        },
+        methods: {
+            selectImg(index) {
+                this.curImgIndex = index;
+            }
+        }
+    });
+</script>
+</html>

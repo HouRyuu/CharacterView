@@ -1,0 +1,18 @@
+#debug: true
+spring:
+  application:
+    name: CharacterView
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://192.168.225.134:3306/characterView?useUnicode=true&characterEncoding=utf-8
+    username: admin
+    password: zn891018"
+  jackson:
+    default-property-inclusion: non_null
+devtools:
+  livereload:
+    enabled: true #????livereload
+    port: 35729
+  restart:
+    enabled: true #???????
