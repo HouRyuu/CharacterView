@@ -27,20 +27,20 @@
             </a-row>
         </a-layout-header>
         <a-layout-content>
-            <a-row type="flex" justify="center" style="margin: 0 10px 2px 0">
+            <a-row type="flex" justify="center" style="margin: 10px 0">
                 <a-col :xs="22" :sm="22" :md="12" :lg="11" :xl="11">
-                    <a-input-search placeholder="キャラクタ名" size="large"/>
+                    <a-input-search placeholder="タイトル" size="large"/>
                 </a-col>
             </a-row>
-            <a-row type="flex" justify="end" style="margin: 0 10px 10px 0">
+            <!--a-row type="flex" justify="end" style="margin: 0 10px 10px 0">
                 <a-col :xs="6" :sm="5" :md="4" :lg="3" :xl="2" class="text-right">
-                    <a-switch checked-children="一番くじ" un-checked-children="普通商品" />
+                    <a-switch checked-children="生産済" un-checked-children="未生産" />
                 </a-col>
-            </a-row>
+            </a-row>-->
             <a-row type="flex" justify="space-between">
                 <a-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" v-for="goods in goodsList" :key="goods.id">
                     <a :href="`goods.html?gid=${goods.id}`">
-                        <a-card class="goods-card" v-bind:class="{'lottery-card': goods.lottery}">
+                        <a-card class="goods-card" v-bind:class="{'notProduce-card': !goods.produced}">
                             <img
                                     slot="cover"
                                     :alt="goods.name"
@@ -59,7 +59,7 @@
         <a-layout-footer class="text-center" style="height: 50px;line-height: 50px">&copy;Character View Company
         </a-layout-footer>
     </a-layout>
-    <a-back-top />
+    <a-back-top/>
 </div>
 </body>
 <script src="./js/vue.js"></script>
@@ -74,63 +74,73 @@
             isLogin: true,
             goodsList: [{
                 id: 1,
-                lottery: 1,
+                produced: 0,
                 name: 'アーニャ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10077/996f8b38-ee71-4135-bf63-5c9fe6995d03.jpg'
             }, {
                 id: 2,
-                lottery: 1,
+                produced: 0,
                 name: 'ディズニー姫',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10070/8de46475-2682-4e82-a514-35c8dc4ad851.jpg'
             }, {
                 id: 3,
+                produced: 0,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10062/f196c88e-4e2b-49cf-8caa-db4e4be96555.jpg'
             }, {
                 id: 4,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10112/736af658-4500-43b9-bd8c-216347615ee7.jpg'
             }, {
                 id: 5,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10072/b42a087b-168e-4b7a-a306-188c74e4508b.jpg'
             }, {
                 id: 6,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/3841/e2cb3a08-3ee6-4260-aa26-b52ffc7625b9.jpg'
             }, {
                 id: 7,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10066/7ef5b95a-8151-4a20-a5fc-5f012f4f7554.jpg'
             }, {
                 id: 8,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10142/6fec48d4-a042-454a-9fa7-93f84f34501b.jpg'
             }, {
-                id: 5,
+                id: 9,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10072/b42a087b-168e-4b7a-a306-188c74e4508b.jpg'
             }, {
-                id: 6,
+                id: 10,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/3841/e2cb3a08-3ee6-4260-aa26-b52ffc7625b9.jpg'
             }, {
-                id: 7,
+                id: 11,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10066/7ef5b95a-8151-4a20-a5fc-5f012f4f7554.jpg'
             }, {
-                id: 8,
+                id: 12,
+                produced: 1,
                 name: 'アーニャぬいぐるみ',
                 desc: 'とても可愛いアーニャさん',
                 img: 'https://1kuji.com/uploads/product/image/10142/6fec48d4-a042-454a-9fa7-93f84f34501b.jpg'

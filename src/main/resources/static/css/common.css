@@ -23,8 +23,8 @@
     box-shadow: 0 2px 8px #6e7780;
 }
 
-.lottery-card:before {
-    content: '一番くじ';
+.notProduce-card:before {
+    content: '未生産';
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;

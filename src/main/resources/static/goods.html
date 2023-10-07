@@ -50,43 +50,50 @@
                     </a-row>
                     <a-collapse accordion expand-icon-position="left">
                         <a-collapse-panel v-for="store in storeList" :key="store.id" :header="store.name">
-                            <span slot="extra">{{store.stockFlag ? '在庫あり' : '在庫切れ'}}</span>
+                            <span slot="extra">
+                                <a-tag v-if="store.stockStatus===2" color="green">在庫あり</a-tag>
+                                <a-tag v-else-if="store.stockStatus" color="orange">在庫僅か</a-tag>
+                                <a-tag v-else>在庫なし</a-tag>
+                            </span>
                             <p>住所：{{ store.address }}</p>
-                            <a-comment v-for="(item, index) in data" :key="index" :author="item.author"
-                                       :avatar="item.avatar">
-                                <template slot="actions">
-                                    <a-button type="link" v-for="action in item.actions">{{ action }}</a-button>
-                                </template>
-                                <div slot="content">
-                                    <p>{{ item.content }}</p>
-                                    <a-form-item>
-                                        <a-textarea :rows="4"/>
-                                    </a-form-item>
-                                </div>
-                                <a-tooltip slot="datetime" :title="item.datetime">
-                                    <span>{{ item.datetime }}</span>
-                                </a-tooltip>
-                            </a-comment>
+<!--                            <a-comment v-for="(item, index) in data" :key="index" :author="item.author"-->
+<!--                                       :avatar="item.avatar">-->
+<!--                                <template slot="actions">-->
+<!--                                    <a-button type="link" v-for="action in item.actions">{{ action }}</a-button>-->
+<!--                                </template>-->
+<!--                                <div slot="content">-->
+<!--                                    <p>{{ item.content }}</p>-->
+<!--                                    <a-form-item>-->
+<!--                                        <a-textarea :rows="4"/>-->
+<!--                                    </a-form-item>-->
+<!--                                </div>-->
+<!--                                <a-tooltip slot="datetime" :title="item.datetime">-->
+<!--                                    <span>{{ item.datetime }}</span>-->
+<!--                                </a-tooltip>-->
+<!--                            </a-comment>-->
                         </a-collapse-panel>
                     </a-collapse>
                 </a-tab-pane>
-                <a-tab-pane key="3">
-                    <span slot="tab">コメント</span>
-                    <a-comment v-for="(item, index) in data" :key="index" :author="item.author" :avatar="item.avatar">
-                        <template slot="actions">
-                            <a-button type="link" v-for="action in item.actions">{{ action }}</a-button>
-                        </template>
-                        <div slot="content">
-                            <p>{{ item.content }}</p>
-                            <a-form-item>
-                                <a-textarea :rows="4"/>
-                            </a-form-item>
-                        </div>
-                        <a-tooltip slot="datetime" :title="item.datetime">
-                            <span>{{ item.datetime }}</span>
-                        </a-tooltip>
-                    </a-comment>
-                </a-tab-pane>
+<!--                <a-tab-pane key="3">-->
+<!--                    <span slot="tab">コメント</span>-->
+<!--                    <a-comment v-for="(item, index) in data" :key="index" :author="item.author" :avatar="item.avatar">-->
+<!--                        <template slot="actions">-->
+<!--                            <a-button type="link" v-for="action in item.actions">{{ action }}</a-button>-->
+<!--                        </template>-->
+<!--                        <div slot="content">-->
+<!--                            <p>{{ item.content }}</p>-->
+<!--                            <a-form-item>-->
+<!--                                <a-textarea :rows="4"/>-->
+<!--                            </a-form-item>-->
+<!--                        </div>-->
+<!--                        <a-tooltip slot="datetime" :title="item.datetime">-->
+<!--                            <span>{{ item.datetime }}</span>-->
+<!--                        </a-tooltip>-->
+<!--                    </a-comment>-->
+<!--                </a-tab-pane>-->
+                <a-button v-if="!wantBuy" slot="tabBarExtraContent" type="link" icon="shopping" @click="wantBuy">
+                    買いたい
+                </a-button>
             </a-tabs>
         </a-layout-content>
         <a-layout-footer class="text-center" style="height: 50px;line-height: 50px">&copy;Character View Company
@@ -107,7 +114,7 @@
             isLogin: true,
             goods: {
                 id: 1,
-                lottery: 1,
+                wantBuy: 1,
                 name: 'アーニャ',
                 desc: 'とても可愛いアーニャさん',
                 imgs: [
@@ -156,32 +163,32 @@
                 id: 1,
                 name: 'ファミリーマート百人町店',
                 address: '東京都新宿区百人町1−1−1',
-                stockFlag: 1
+                stockStatus: 2
             }, {
                 id: 2,
                 name: 'ファミリーマート新宿西口店',
                 address: '東京都新宿区百人町1−1−1',
-                stockFlag: 1
+                stockStatus: 2
             }, {
                 id: 3,
                 name: 'ファミリーマート新宿東南口店',
                 address: '東京都新宿区百人町1−1−1',
-                stockFlag: 1
+                stockStatus: 1
             }, {
                 id: 4,
                 name: 'ファミリーマート明治神宮前店',
                 address: '東京都新宿区百人町1−1−1',
-                stockFlag: 1
+                stockStatus: 1
             }, {
                 id: 5,
                 name: 'ファミリーマート渋谷駅店',
                 address: '東京都新宿区百人町1−1−1',
-                stockFlag: 0
+                stockStatus: 0
             }, {
                 id: 6,
                 name: 'ファミリーマート六本木北口店',
                 address: '東京都新宿区百人町1−1−1',
-                stockFlag: 0
+                stockStatus: 0
             }],
             regions: []
         },
@@ -189,8 +196,8 @@
             this.regions = REGION;
         },
         methods: {
-            selectImg(index) {
-                this.curImgIndex = index;
+            wantBuy(){
+                alert('買いたい')
             }
         }
     });
